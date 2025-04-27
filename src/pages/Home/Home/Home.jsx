@@ -1,12 +1,10 @@
 import React from "react";
-import useAuth from "../../../hooks/useAuth";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
-  const { user } = useAuth();
   return (
     <div>
-      <h2>HomePage Area</h2>
-      <p>Hello, {user}</p>
+      <Banner></Banner>
     </div>
   );
 };
