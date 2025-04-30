@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const handleRegister = (e) => {
-    e.preventDefault();
-    // Handle register logic
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   const handleGoogleSignup = () => {
@@ -18,7 +25,7 @@ const Register = () => {
           Register
         </h2>
 
-        <form onSubmit={handleRegister} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="label">
               <span className="label-text text-teal-700">Full Name</span>
@@ -26,6 +33,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Your name"
+              {...register("name", { required: true })}
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -38,6 +46,7 @@ const Register = () => {
             <input
               type="email"
               placeholder="Your email"
+              {...register("email", { required: true })}
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -50,6 +59,7 @@ const Register = () => {
             <input
               type="password"
               placeholder="Create password"
+              {...register("password", { required: true })}
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -61,6 +71,7 @@ const Register = () => {
             </label>
             <input
               type="file"
+              {...register("image", { required: true })}
               accept="image/*"
               className="file-input file-input-bordered w-full border-teal-300"
             />
