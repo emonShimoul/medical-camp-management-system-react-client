@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  // const user = {
-  //   displayName: "Emon Shimoul",
-  //   photoURL: "https://i.ibb.co.com/4fsbvS1/Virat-Kohli.webp",
-  // };
-  const user = null;
+  const { user, logOut } = useAuth();
+  console.log(user);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className="navbar bg-gradient-to-r from-slate-50 to-white shadow-md px-4 md:px-8">
@@ -86,7 +91,7 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full ring ring-teal-400 ring-offset-base-100 ring-offset-2">
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt="Profile" />
+                  <img src={user?.photoURL} alt="Profile" />
                 ) : (
                   <FaUserCircle className="w-10 h-10 text-teal-400" />
                 )}
@@ -105,9 +110,7 @@ const Navbar = () => {
                   Dashboard
                 </Link>
                 <button
-                  onClick={() => {
-                    // your logout function here
-                  }}
+                  onClick={handleLogout}
                   className="w-full text-left px-4 py-2 hover:bg-teal-50 text-teal-500"
                 >
                   Logout

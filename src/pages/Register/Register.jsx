@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Register = () => {
   const {
@@ -87,12 +87,7 @@ const Register = () => {
 
         <div className="divider text-gray-400">OR</div>
 
-        <button
-          onClick={handleGoogleSignup}
-          className="btn btn-outline w-full border-teal-400 text-teal-600 hover:bg-teal-50"
-        >
-          <FcGoogle className="text-xl mr-2" /> Sign up with Google
-        </button>
+        <SocialLogin></SocialLogin>
 
         <p className="text-sm text-center mt-4 text-gray-600">
           Already have an account?{" "}
