@@ -1,31 +1,43 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
-const Login = () => {
-  const handleLogin = (e) => {
+const Register = () => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    // Handle login logic
+    // Handle register logic
   };
 
-  const handleGoogleLogin = () => {
-    // Google login logic
+  const handleGoogleSignup = () => {
+    // Google signup logic
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-white pt-8 pb-4">
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-xl rounded-2xl border border-teal-100">
         <h2 className="text-3xl font-bold text-center text-teal-600">
-          Welcome Back
+          Register
         </h2>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div>
+            <label className="label">
+              <span className="label-text text-teal-700">Full Name</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Your name"
+              className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
+              required
+            />
+          </div>
+
           <div>
             <label className="label">
               <span className="label-text text-teal-700">Email</span>
             </label>
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Your email"
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -37,9 +49,20 @@ const Login = () => {
             </label>
             <input
               type="password"
-              placeholder="Your password"
+              placeholder="Create password"
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
+            />
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text text-teal-700">Upload Image</span>
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="file-input file-input-bordered w-full border-teal-300"
             />
           </div>
 
@@ -47,26 +70,26 @@ const Login = () => {
             type="submit"
             className="btn w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:from-teal-600 hover:to-emerald-600 border-none"
           >
-            Login
+            Register
           </button>
         </form>
 
         <div className="divider text-gray-400">OR</div>
 
         <button
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleSignup}
           className="btn btn-outline w-full border-teal-400 text-teal-600 hover:bg-teal-50"
         >
-          <FcGoogle className="text-xl mr-2" /> Sign in with Google
+          <FcGoogle className="text-xl mr-2" /> Sign up with Google
         </button>
 
         <p className="text-sm text-center mt-4 text-gray-600">
-          Don’t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-teal-600 font-medium hover:underline"
           >
-            Register here
+            Login here
           </Link>
         </p>
       </div>
@@ -74,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
