@@ -4,6 +4,7 @@ import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -12,6 +13,7 @@ const Register = () => {
   const axiosPublic = useAxiosPublic();
   const { createNewUser, updatedUserProfile } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState({});
   const {
     register,
     handleSubmit,
@@ -24,42 +26,49 @@ const Register = () => {
     // image upload to imgbb and then get an url
     const imageFile = { image: data.image[0] };
 
-    createNewUser(data.email, data.password).then(async (result) => {
-      const loggedUser = result.user;
-      console.log(loggedUser);
+    createNewUser(data.email, data.password)
+      .then(async (result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        console.log(result.error);
 
-      const res = await axiosPublic.post(image_hosting_api, imageFile, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+        if (res.data.success) {
+          // now send the data to the server with the image url
+
+          updatedUserProfile(data.name, res.data.data.display_url)
+            .then(async () => {
+              const registeredUser = {
+                name: data.name,
+                email: data.email,
+                image: res.data.data.display_url,
+              };
+              const userRes = await axiosPublic.post("/users", registeredUser);
+              if (userRes.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `User has been created successfully!!`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            })
+            .catch((err) => {
+              setError({ ...error, registerErr: err.message });
+            });
+        }
+        console.log("with image url", res.data);
+      })
+      .catch((err) => {
+        setError({ ...error, registerErr: err.message });
       });
-      if (res.data.success) {
-        // now send the data to the server with the image url
-
-        updatedUserProfile(data.name, res.data.data.display_url).then(
-          async () => {
-            const registeredUser = {
-              name: data.name,
-              email: data.email,
-              image: res.data.data.display_url,
-            };
-            const userRes = await axiosPublic.post("/users", registeredUser);
-            if (userRes.data.insertedId) {
-              reset();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `User has been created successfully!!`,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate("/");
-            }
-          }
-        );
-      }
-      console.log("with image url", res.data);
-    });
   };
 
   return (
@@ -149,7 +158,14 @@ const Register = () => {
             Register
           </button>
         </form>
-
+        {error.registerErr && (
+          <label
+            htmlFor=""
+            className="label text-sm text-red-500 font-bold mt-4"
+          >
+            {error.registerErr}
+          </label>
+        )}
         <div className="divider text-gray-400">OR</div>
 
         <SocialLogin></SocialLogin>
