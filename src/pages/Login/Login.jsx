@@ -1,10 +1,49 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { signIn } = useAuth();
+  const [error, setError] = useState({});
+  const from = location.state?.from?.pathname || "/";
+
   const handleLogin = (e) => {
     e.preventDefault();
-    // Handle login logic
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "User Login Successfully!!",
+          showClass: {
+            popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+          },
+          hideClass: {
+            popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+          },
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        setError({ ...error, loginErr: err.message });
+      });
   };
 
   return (
@@ -21,6 +60,7 @@ const Login = () => {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
@@ -33,12 +73,20 @@ const Login = () => {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="Your password"
               className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
               required
             />
           </div>
-
+          {error.loginErr && (
+            <label
+              htmlFor=""
+              className="label text-sm text-red-500 font-bold mt-4"
+            >
+              {error.loginErr}
+            </label>
+          )}
           <button
             type="submit"
             className="btn w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:from-teal-600 hover:to-emerald-600 border-none"

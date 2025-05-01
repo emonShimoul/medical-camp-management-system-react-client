@@ -28,10 +28,7 @@ const Register = () => {
 
     createNewUser(data.email, data.password)
       .then(async (result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        console.log(result.error);
-
+        const _loggedUser = result.user;
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
           headers: {
             "content-type": "multipart/form-data",
@@ -64,7 +61,7 @@ const Register = () => {
               setError({ ...error, registerErr: err.message });
             });
         }
-        console.log("with image url", res.data);
+        // console.log("with image url", res.data);
       })
       .catch((err) => {
         setError({ ...error, registerErr: err.message });
