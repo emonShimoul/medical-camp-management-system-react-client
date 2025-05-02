@@ -4,6 +4,8 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import OrganizerDashboardLayout from "../layout/OrganizerDashboardLayout";
+import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <h1>Dashboard</h1>,
+    element: <OrganizerDashboardLayout></OrganizerDashboardLayout>,
+    children: [
+      {
+        path: "profile",
+        element: <OrganizerProfile></OrganizerProfile>,
+      },
+    ],
   },
 ]);
