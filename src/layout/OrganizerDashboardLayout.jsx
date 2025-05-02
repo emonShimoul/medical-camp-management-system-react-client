@@ -69,7 +69,7 @@ const OrganizerDashboardLayout = () => {
                 </span>
               </Link>
               <Link
-                to="add-camp"
+                to="addCamp"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
                 <FaPlusCircle className="text-xl text-[#3B82F6]" />
