@@ -4,11 +4,12 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
-import OrganizerDashboardLayout from "../layout/OrganizerDashboardLayout";
 import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
 import AddCamp from "../pages/Dashboard/AddCamp/AddCamp";
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import CampDetails from "../pages/CampDetails/CampDetails";
+import RegisteredCamps from "../pages/ParticipantsDashboard/RegisteredCamps/RegisteredCamps";
+import DashboardLayout from "../layout/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <OrganizerDashboardLayout></OrganizerDashboardLayout>,
+    element: <DashboardLayout></DashboardLayout>,
     children: [
       {
         path: "profile",
@@ -58,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: "addCamp",
         element: <AddCamp></AddCamp>,
+      },
+      {
+        path: "registeredCamps",
+        element: (
+          <PrivateRoute>
+            <RegisteredCamps></RegisteredCamps>
+          </PrivateRoute>
+        ),
       },
     ],
   },

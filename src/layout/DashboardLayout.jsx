@@ -9,8 +9,8 @@ import {
   FaHistory,
 } from "react-icons/fa";
 
-const OrganizerDashboardLayout = () => {
-  const isAdmin = true; // Replace with real auth check
+const DashboardLayout = () => {
+  const isAdmin = false; // Replace with real auth check
 
   return (
     <div className="min-h-screen flex">
@@ -39,7 +39,7 @@ const OrganizerDashboardLayout = () => {
                 </span>
               </Link>
               <Link
-                to="registered-camps"
+                to="registeredCamps"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
                 <FaRegListAlt className="text-xl text-[#3B82F6]" />
@@ -104,4 +104,4 @@ const OrganizerDashboardLayout = () => {
   );
 };
 
-export default OrganizerDashboardLayout;
+export default DashboardLayout;

@@ -63,6 +63,9 @@ const Navbar = () => {
               <Link to="/camps">Available Camps</Link>
             </li>
             <li>
+              <Link to="/registeredCamps">Registered Camps</Link>
+            </li>
+            <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
             {!user && (
@@ -88,7 +91,6 @@ const Navbar = () => {
           <li>
             <Link to="/camps">Available Camps</Link>
           </li>
-
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
