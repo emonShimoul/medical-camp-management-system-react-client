@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import OrganizerDashboardLayout from "../layout/OrganizerDashboardLayout";
 import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
 import AddCamp from "../pages/Dashboard/AddCamp/AddCamp";
+import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
         path: "/camps",
         element: (
           <PrivateRoute>
-            <h1>Camps</h1>
+            <AvailableCamps></AvailableCamps>
           </PrivateRoute>
         ),
       },
