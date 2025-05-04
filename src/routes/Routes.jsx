@@ -8,6 +8,7 @@ import OrganizerDashboardLayout from "../layout/OrganizerDashboardLayout";
 import OrganizerProfile from "../pages/Dashboard/OrganizerProfile/OrganizerProfile";
 import AddCamp from "../pages/Dashboard/AddCamp/AddCamp";
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
+import CampDetails from "../pages/CampDetails/CampDetails";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,16 @@ export const router = createBrowserRouter([
             <AvailableCamps></AvailableCamps>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/campDetails/:id",
+        element: (
+          <PrivateRoute>
+            <CampDetails></CampDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/camp/${params.id}`),
       },
     ],
   },

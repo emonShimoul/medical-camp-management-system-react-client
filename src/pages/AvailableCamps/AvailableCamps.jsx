@@ -29,11 +29,13 @@ const AvailableCamps = () => {
           >
             <img
               src={camp.image}
-              alt={camp.name}
+              alt={camp.campName}
               className="w-full h-48 object-cover"
             />
             <div className="p-5 space-y-3">
-              <h2 className="text-xl font-bold text-teal-700">{camp.name}</h2>
+              <h2 className="text-xl font-bold text-teal-700">
+                {camp.campName}
+              </h2>
               <p className="text-sm text-gray-500">
                 <span className="font-medium text-teal-600">Date & Time:</span>{" "}
                 {camp.dateTime}
@@ -55,7 +57,7 @@ const AvailableCamps = () => {
               </p>
 
               <Link
-                to={`/camp-details/${camp._id}`}
+                to={`/campDetails/${camp._id}`}
                 className="inline-block mt-3 px-4 py-2 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-md text-sm font-semibold hover:from-teal-600 hover:to-emerald-600 transition"
               >
                 View Details
