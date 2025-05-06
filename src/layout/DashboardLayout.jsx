@@ -8,9 +8,10 @@ import {
   FaUser,
   FaHistory,
 } from "react-icons/fa";
+import useAdmin from "../hooks/useAdmin";
 
 const DashboardLayout = () => {
-  const isAdmin = false; // Replace with real auth check
+  const [isAdmin] = useAdmin(); // Replace with real auth check
 
   return (
     <div className="min-h-screen flex">

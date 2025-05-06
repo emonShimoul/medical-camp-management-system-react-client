@@ -30,7 +30,7 @@ const CampDetails = () => {
       fees: camp.fees,
     };
 
-    console.log(registrationData);
+    // console.log(registrationData);
 
     try {
       const res = await axiosPublic.post("/registeredCamps", registrationData);
