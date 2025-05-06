@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AvailableCamps = () => {
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const { data: camps = [], isLoading } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/camp");
+      const res = await axiosSecure.get("/camp");
       return res.data;
     },
   });

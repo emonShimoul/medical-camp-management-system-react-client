@@ -5,10 +5,9 @@ import Swal from "sweetalert2";
 
 const CampDetails = () => {
   const camp = useLoaderData();
-  console.log(camp);
+  //   console.log(camp);
 
   const { user } = useAuth();
-  //   const axiosSecure = useAxiosSecure(); // Use your secure axios instance
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
