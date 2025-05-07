@@ -42,6 +42,7 @@ const Register = () => {
               const registeredUser = {
                 name: data.name,
                 email: data.email,
+                phone: data.phone,
                 image: res.data.data.display_url,
               };
               const userRes = await axiosPublic.post("/users", registeredUser);
@@ -132,6 +133,24 @@ const Register = () => {
             {errors.password && (
               <span className="font-bold text-red-600">
                 {errors.password.message}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text text-teal-700">Phone Number</span>
+            </label>
+            <input
+              type="tel"
+              placeholder="Your phone number"
+              {...register("phone", { required: true })}
+              className="input input-bordered w-full border-teal-300 focus:ring-2 focus:ring-teal-500"
+              required
+            />
+            {errors.phone && (
+              <span className="font-bold text-red-600">
+                Phone number is required
               </span>
             )}
           </div>
