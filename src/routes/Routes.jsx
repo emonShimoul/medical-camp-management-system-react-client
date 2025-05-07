@@ -10,6 +10,7 @@ import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import CampDetails from "../pages/CampDetails/CampDetails";
 import RegisteredCamps from "../pages/ParticipantsDashboard/RegisteredCamps/RegisteredCamps";
 import DashboardLayout from "../layout/DashboardLayout";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -50,15 +51,27 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "profile",
-        element: <OrganizerProfile></OrganizerProfile>,
+        element: (
+          <AdminRoute>
+            <OrganizerProfile></OrganizerProfile>
+          </AdminRoute>
+        ),
       },
       {
         path: "addCamp",
-        element: <AddCamp></AddCamp>,
+        element: (
+          <AdminRoute>
+            <AddCamp></AddCamp>
+          </AdminRoute>
+        ),
       },
       {
         path: "registeredCamps",
