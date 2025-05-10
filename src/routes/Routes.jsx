@@ -13,6 +13,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AdminRoute from "./AdminRoute";
 import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
+import ParticipantProfile from "../pages/ParticipantsDashboard/ParticipantProfile/ParticipantProfile";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "participantProfile",
+        element: (
+          <PrivateRoute>
+            <ParticipantProfile></ParticipantProfile>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "addCamp",
         element: (
           <AdminRoute>
@@ -90,8 +99,6 @@ export const router = createBrowserRouter([
             <UpdateCamp></UpdateCamp>
           </AdminRoute>
         ),
-        // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/camp/${params.id}`),
       },
       {
         path: "registeredCamps",

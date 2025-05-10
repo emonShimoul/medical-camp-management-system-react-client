@@ -31,7 +31,7 @@ const DashboardLayout = () => {
                 <span className="text-slate-100 font-medium">Analytics</span>
               </Link>
               <Link
-                to="participant-profile"
+                to="participantProfile"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
                 <FaUser className="text-xl text-[#3B82F6]" />
