@@ -77,10 +77,10 @@ const DashboardLayout = () => {
                 <span className="text-slate-100 font-medium">Add A Camp</span>
               </Link>
               <Link
-                to="manage-camps"
+                to="manageCamps"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
-                <FaClipboardList className="text-xl text-[#3B82F6]" />
+                <FaClipboardList className="text-xl text-[#afb2b5]" />
                 <span className="text-slate-100 font-medium">Manage Camps</span>
               </Link>
               <Link
