@@ -14,6 +14,8 @@ import AdminRoute from "./AdminRoute";
 import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import ParticipantProfile from "../pages/ParticipantsDashboard/ParticipantProfile/ParticipantProfile";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -107,6 +109,14 @@ export const router = createBrowserRouter([
             <RegisteredCamps></RegisteredCamps>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },

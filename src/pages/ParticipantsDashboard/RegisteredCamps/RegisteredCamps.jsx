@@ -4,6 +4,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
   const { user } = useAuth();
@@ -52,11 +53,11 @@ const RegisteredCamps = () => {
     }
   };
 
-  const handlePay = (id) => {
-    Swal.fire("Redirecting to payment...", "Please wait", "info");
-    // Redirect to payment route here
-    console.log(id);
-  };
+  // const handlePay = (id) => {
+  //   Swal.fire("Redirecting to payment...", "Please wait", "info");
+  //   // Redirect to payment route here
+  //   console.log(id);
+  // };
 
   const handleFeedback = (campId) => {
     Swal.fire({
@@ -108,12 +109,18 @@ const RegisteredCamps = () => {
                     {camp.paymentStatus === "paid" ? (
                       <span className="text-green-500">Paid</span>
                     ) : (
-                      <button
-                        className="btn btn-sm bg-amber-500 text-white"
-                        onClick={() => handlePay(camp._id)}
+                      <Link
+                        to="/dashboard/payment"
+                        state={{
+                          campId: camp._id,
+                          price: camp.fees,
+                          campName: camp.campName,
+                        }}
                       >
-                        Pay
-                      </button>
+                        <button className="btn btn-sm bg-amber-500 text-white">
+                          Pay
+                        </button>
+                      </Link>
                     )}
                   </td>
                   <td className="p-2">
