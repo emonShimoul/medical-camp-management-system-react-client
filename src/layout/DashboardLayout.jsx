@@ -84,7 +84,7 @@ const DashboardLayout = () => {
                 <span className="text-slate-100 font-medium">Manage Camps</span>
               </Link>
               <Link
-                to="registered-camps"
+                to="manageRegisteredCamps"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
                 <FaRegListAlt className="text-xl text-[#3B82F6]" />
