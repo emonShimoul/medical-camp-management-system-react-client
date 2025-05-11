@@ -18,6 +18,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import ManageRegisteredCamps from "../pages/Dashboard/ManageRegisteredCamps/ManageRegisteredCamps";
 import PaymentHistory from "../pages/ParticipantsDashboard/PaymentHistory/PaymentHistory";
 import Analytics from "../pages/ParticipantsDashboard/Analytics/Analytics";
+import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "profile",
         element: (

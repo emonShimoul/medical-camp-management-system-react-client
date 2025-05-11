@@ -7,98 +7,126 @@ import {
   FaChartBar,
   FaUser,
   FaHistory,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import useAdmin from "../hooks/useAdmin";
+import { useState } from "react";
+
+const SidebarLink = ({ to, icon, text, onClick }) => (
+  <Link
+    to={to}
+    onClick={onClick}
+    className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors text-white"
+  >
+    <span className="text-xl text-[#3B82F6]">{icon}</span>
+    <span className="font-medium">{text}</span>
+  </Link>
+);
 
 const DashboardLayout = () => {
-  const [isAdmin] = useAdmin(); // Replace with real auth check
+  const [isAdmin] = useAdmin();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleLinkClick = () => setSidebarOpen(false);
 
   return (
     <div className="min-h-screen flex">
+      {/* Mobile Toggle Button */}
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 bg-[#1E293B] p-2 rounded text-white"
+        onClick={() => setSidebarOpen(true)}
+      >
+        <FaBars />
+      </button>
+
       {/* Sidebar */}
-      <aside className="w-64 bg-[#1E293B] p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-[#3B82F6] mb-6 text-center">
-          Organizer Panel
-        </h2>
+      <aside
+        className={`
+          fixed md:static top-0 left-0 z-40 w-64 bg-[#1E293B] p-6 shadow-lg
+          min-h-screen transition-transform duration-300
+          ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }
+        `}
+      >
+        {/* Mobile Close Button */}
+        <div className="md:hidden flex justify-end mb-4">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-white text-xl"
+          >
+            <FaTimes />
+          </button>
+        </div>
+
+        <Link to="/dashboard" onClick={handleLinkClick}>
+          <h2 className="text-2xl font-bold text-[#3B82F6] mb-6 text-center">
+            Dashboard
+          </h2>
+        </Link>
+
         <nav className="space-y-2">
           {!isAdmin ? (
             <>
-              <Link
+              <SidebarLink
                 to="analytics"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaChartBar className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">Analytics</span>
-              </Link>
-              <Link
+                icon={<FaChartBar />}
+                text="Analytics"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="participantProfile"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaUser className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">
-                  Participant Profile
-                </span>
-              </Link>
-              <Link
+                icon={<FaUser />}
+                text="Participant Profile"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="registeredCamps"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaRegListAlt className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">
-                  Registered Camps
-                </span>
-              </Link>
-              <Link
+                icon={<FaRegListAlt />}
+                text="Registered Camps"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="paymentHistory"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaHistory className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">
-                  Payment History
-                </span>
-              </Link>
+                icon={<FaHistory />}
+                text="Payment History"
+                onClick={handleLinkClick}
+              />
             </>
           ) : (
             <>
-              <Link
+              <SidebarLink
                 to="profile"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaUserEdit className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">
-                  Organizer Profile
-                </span>
-              </Link>
-              <Link
+                icon={<FaUserEdit />}
+                text="Organizer Profile"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="addCamp"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaPlusCircle className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">Add A Camp</span>
-              </Link>
-              <Link
+                icon={<FaPlusCircle />}
+                text="Add A Camp"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="manageCamps"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaClipboardList className="text-xl text-[#afb2b5]" />
-                <span className="text-slate-100 font-medium">Manage Camps</span>
-              </Link>
-              <Link
+                icon={<FaClipboardList />}
+                text="Manage Camps"
+                onClick={handleLinkClick}
+              />
+              <SidebarLink
                 to="manageRegisteredCamps"
-                className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
-              >
-                <FaRegListAlt className="text-xl text-[#3B82F6]" />
-                <span className="text-slate-100 font-medium">
-                  Manage Registered Camps
-                </span>
-              </Link>
+                icon={<FaRegListAlt />}
+                text="Manage Registered Camps"
+                onClick={handleLinkClick}
+              />
             </>
           )}
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-[#F8FAFC]">
+      <main className="flex-1 ml-0 p-6 bg-[#F8FAFC]">
         <Outlet />
       </main>
     </div>
