@@ -5,11 +5,12 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 const CampDetails = () => {
-  const camp = useLoaderData();
+  const loadedCamp = useLoaderData();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
+  const [camp, setCamp] = useState(loadedCamp); // enable UI update
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     age: "",
@@ -50,7 +51,14 @@ const CampDetails = () => {
 
     try {
       const res = await axiosPublic.post("/registeredCamps", registrationData);
+
       if (res.data.insertedId) {
+        // ✅ Update local state to reflect UI change
+        setCamp((prev) => ({
+          ...prev,
+          participantCount: prev.participantCount + 1,
+        }));
+
         Swal.fire("Success!", "You have successfully registered.", "success");
         setShowModal(false);
       }
@@ -62,6 +70,7 @@ const CampDetails = () => {
           "warning"
         );
       } else {
+        console.error(error);
         Swal.fire("Error", "Something went wrong. Please try again.", "error");
       }
     }
@@ -114,109 +123,100 @@ const CampDetails = () => {
 
       {/* DaisyUI Modal */}
       {showModal && (
-        <>
-          <input
-            type="checkbox"
-            id="camp-register-modal"
-            className="modal-toggle"
-            checked
-            readOnly
-          />
-          <div className="modal modal-bottom sm:modal-middle">
-            <div className="modal-box max-w-lg">
-              <h3 className="font-bold text-lg mb-4 text-teal-600">
-                Register for {camp.campName}
-              </h3>
-              <form onSubmit={handleFormSubmit} className="space-y-3">
-                <input
-                  type="text"
-                  value={camp.campName}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-                <input
-                  type="text"
-                  value={camp.fees}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-                <input
-                  type="text"
-                  value={camp.location}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-                <input
-                  type="text"
-                  value={camp.healthcareProfessional}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-                <input
-                  type="text"
-                  value={user.displayName}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-                <input
-                  type="email"
-                  value={user.email}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
+        <div className="modal modal-open">
+          <div className="modal-box max-w-lg">
+            <h3 className="font-bold text-lg mb-4 text-teal-600">
+              Register for {camp.campName}
+            </h3>
+            <form onSubmit={handleFormSubmit} className="space-y-3">
+              <input
+                type="text"
+                value={camp.campName}
+                readOnly
+                className="input input-bordered w-full"
+              />
+              <input
+                type="text"
+                value={camp.fees}
+                readOnly
+                className="input input-bordered w-full"
+              />
+              <input
+                type="text"
+                value={camp.location}
+                readOnly
+                className="input input-bordered w-full"
+              />
+              <input
+                type="text"
+                value={camp.healthcareProfessional}
+                readOnly
+                className="input input-bordered w-full"
+              />
+              <input
+                type="text"
+                value={user.displayName}
+                readOnly
+                className="input input-bordered w-full"
+              />
+              <input
+                type="email"
+                value={user.email}
+                readOnly
+                className="input input-bordered w-full"
+              />
 
-                <input
-                  type="number"
-                  name="age"
-                  placeholder="Age"
-                  required
-                  className="input input-bordered w-full"
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Phone Number"
-                  required
-                  className="input input-bordered w-full"
-                  onChange={handleInputChange}
-                />
-                <select
-                  name="gender"
-                  required
-                  className="select select-bordered w-full"
-                  onChange={handleInputChange}
+              <input
+                type="number"
+                name="age"
+                placeholder="Age"
+                required
+                className="input input-bordered w-full"
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                required
+                className="input input-bordered w-full"
+                onChange={handleInputChange}
+              />
+              <select
+                name="gender"
+                required
+                className="select select-bordered w-full"
+                onChange={handleInputChange}
+              >
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+              <input
+                type="text"
+                name="emergencyContact"
+                placeholder="Emergency Contact"
+                required
+                className="input input-bordered w-full"
+                onChange={handleInputChange}
+              />
+
+              <div className="modal-action">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => setShowModal(false)}
                 >
-                  <option value="">Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-                <input
-                  type="text"
-                  name="emergencyContact"
-                  placeholder="Emergency Contact"
-                  required
-                  className="input input-bordered w-full"
-                  onChange={handleInputChange}
-                />
-
-                <div className="modal-action">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                  <label
-                    onClick={() => setShowModal(false)}
-                    className="btn"
-                    htmlFor="camp-register-modal"
-                  >
-                    Cancel
-                  </label>
-                </div>
-              </form>
-            </div>
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
