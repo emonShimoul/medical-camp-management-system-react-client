@@ -25,6 +25,16 @@ const RegisteredCamps = () => {
     enabled: !!user?.email,
   });
 
+  // for feedback
+  const { data: feedbacks = [], refetch: refetchFeedbacks } = useQuery({
+    queryKey: ["userFeedbacks", user?.email],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/feedback?email=${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
+
   const handleCancel = async (id, isPaid) => {
     if (isPaid) return;
 
@@ -56,17 +66,41 @@ const RegisteredCamps = () => {
   const handleFeedback = (campId) => {
     Swal.fire({
       title: "Give Feedback",
-      input: "textarea",
-      inputLabel: "Your feedback",
+      html: `
+        <label for="feedback-text" class="block text-left mb-1 font-semibold text-sm">Your Feedback:</label>
+        <textarea id="feedback-text" class="swal2-textarea" placeholder="Write your feedback here..."></textarea>
+        <label for="feedback-rating" class="block text-left mt-3 mb-1 font-semibold text-sm">Rating (1-5):</label>
+        <input type="number" id="feedback-rating" class="swal2-input" min="1" max="5" placeholder="Enter rating from 1 to 5">
+      `,
+      focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: "Submit",
-    }).then((result) => {
-      if (result.isConfirmed && result.value) {
-        axiosPublic.post("/feedback", {
+      preConfirm: () => {
+        const feedback = document.getElementById("feedback-text").value;
+        const rating = parseInt(
+          document.getElementById("feedback-rating").value
+        );
+
+        if (!feedback || !rating || rating < 1 || rating > 5) {
+          Swal.showValidationMessage(
+            "Please enter valid feedback and a rating between 1 and 5."
+          );
+          return false;
+        }
+
+        return { feedback, rating };
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { feedback, rating } = result.value;
+
+        await axiosPublic.post("/feedback", {
           campId,
-          feedback: result.value,
+          feedback,
+          rating,
           userEmail: user.email,
         });
+        await refetchFeedbacks();
         Swal.fire("Thank you!", "Your feedback has been submitted.", "success");
       }
     });
@@ -95,60 +129,72 @@ const RegisteredCamps = () => {
               </tr>
             </thead>
             <tbody>
-              {camps.map((camp) => (
-                <tr key={camp._id} className="border-b">
-                  <td className="p-2">{camp.campName}</td>
-                  <td className="p-2">${camp.fees}</td>
-                  <td className="p-2">{user?.displayName}</td>
-                  <td className="p-2">
-                    {camp.paymentStatus === "paid" ? (
-                      <span className="text-green-600 font-bold px-2 py-1">
-                        Paid
-                      </span>
-                    ) : (
-                      <Link
-                        to="/dashboard/payment"
-                        state={{
-                          campId: camp._id,
-                          price: camp.fees,
-                          campName: camp.campName,
-                        }}
-                      >
-                        <button className="btn btn-sm bg-amber-500 text-white">
-                          Pay
-                        </button>
-                      </Link>
-                    )}
-                  </td>
-                  <td className="p-2">
-                    {camp.confirmationStatus === "confirmed" ? (
-                      <span className="text-green-600">Confirmed</span>
-                    ) : (
-                      <span className="text-gray-500">Pending</span>
-                    )}
-                  </td>
-                  <td className="p-2 space-x-2">
-                    <button
-                      className="btn btn-sm bg-red-500 text-white disabled:opacity-50"
-                      onClick={() =>
-                        handleCancel(camp._id, camp.paymentStatus === "paid")
-                      }
-                      disabled={camp.paymentStatus === "paid"}
-                    >
-                      Cancel
-                    </button>
-                    {camp.paymentStatus === "paid" &&
-                      camp.confirmationStatus === "confirmed" && (
-                        <button
-                          className="btn btn-sm bg-blue-500 text-white"
-                          onClick={() => handleFeedback(camp._id)}
+              {camps.map((camp) => {
+                const hasFeedback = feedbacks.some(
+                  (fb) => fb.campId === camp._id
+                );
+
+                return (
+                  <tr key={camp._id} className="border-b">
+                    <td className="p-2">{camp.campName}</td>
+                    <td className="p-2">${camp.fees}</td>
+                    <td className="p-2">{user?.displayName}</td>
+                    <td className="p-2">
+                      {camp.paymentStatus === "paid" ? (
+                        <span className="text-green-600 font-bold px-2 py-1">
+                          Paid
+                        </span>
+                      ) : (
+                        <Link
+                          to="/dashboard/payment"
+                          state={{
+                            campId: camp._id,
+                            price: camp.fees,
+                            campName: camp.campName,
+                          }}
                         >
-                          Feedback
-                        </button>
+                          <button className="btn btn-sm bg-amber-500 text-white">
+                            Pay
+                          </button>
+                        </Link>
                       )}
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="p-2">
+                      {camp.confirmationStatus === "confirmed" ? (
+                        <span className="text-green-600">Confirmed</span>
+                      ) : (
+                        <span className="text-gray-500">Pending</span>
+                      )}
+                    </td>
+                    <td className="p-2 space-x-2">
+                      <button
+                        className="btn btn-sm bg-red-500 text-white disabled:opacity-50"
+                        onClick={() =>
+                          handleCancel(camp._id, camp.paymentStatus === "paid")
+                        }
+                        disabled={camp.paymentStatus === "paid"}
+                      >
+                        Cancel
+                      </button>
+
+                      {camp.paymentStatus === "paid" &&
+                        camp.confirmationStatus === "confirmed" &&
+                        (hasFeedback ? (
+                          <span className="text-green-600 font-medium">
+                            Feedback Submitted
+                          </span>
+                        ) : (
+                          <button
+                            className="btn btn-sm bg-blue-500 text-white"
+                            onClick={() => handleFeedback(camp._id)}
+                          >
+                            Feedback
+                          </button>
+                        ))}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
