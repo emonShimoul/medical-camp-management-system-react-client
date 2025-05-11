@@ -15,8 +15,8 @@ import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import ParticipantProfile from "../pages/ParticipantsDashboard/ParticipantProfile/ParticipantProfile";
 import Payment from "../pages/Dashboard/Payment/Payment";
-import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import ManageRegisteredCamps from "../pages/Dashboard/ManageRegisteredCamps/ManageRegisteredCamps";
+import PaymentHistory from "../pages/ParticipantsDashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {

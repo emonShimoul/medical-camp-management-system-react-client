@@ -49,7 +49,7 @@ const DashboardLayout = () => {
                 </span>
               </Link>
               <Link
-                to="payment-history"
+                to="paymentHistory"
                 className="flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[#334155] transition-colors"
               >
                 <FaHistory className="text-xl text-[#3B82F6]" />

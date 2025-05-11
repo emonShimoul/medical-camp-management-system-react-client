@@ -162,14 +162,14 @@ const ParticipantProfile = () => {
             <div className="flex gap-4">
               <button
                 type="submit"
-                className="btn bg-teal-500 text-white w-full hover:bg-teal-600"
+                className="btn bg-teal-500 text-white w-1/2 hover:bg-teal-600"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="btn bg-gray-300 text-gray-700 w-full hover:bg-gray-400"
+                className="btn bg-gray-300 text-gray-700 w-1/2 hover:bg-gray-400"
               >
                 Cancel
               </button>
