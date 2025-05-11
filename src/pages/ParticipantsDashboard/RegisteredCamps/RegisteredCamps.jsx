@@ -53,12 +53,6 @@ const RegisteredCamps = () => {
     }
   };
 
-  // const handlePay = (id) => {
-  //   Swal.fire("Redirecting to payment...", "Please wait", "info");
-  //   // Redirect to payment route here
-  //   console.log(id);
-  // };
-
   const handleFeedback = (campId) => {
     Swal.fire({
       title: "Give Feedback",
@@ -77,6 +71,7 @@ const RegisteredCamps = () => {
       }
     });
   };
+  // console.log(camps);
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-4">
@@ -104,10 +99,12 @@ const RegisteredCamps = () => {
                 <tr key={camp._id} className="border-b">
                   <td className="p-2">{camp.campName}</td>
                   <td className="p-2">${camp.fees}</td>
-                  <td className="p-2">{camp.participantName}</td>
+                  <td className="p-2">{user?.displayName}</td>
                   <td className="p-2">
                     {camp.paymentStatus === "paid" ? (
-                      <span className="text-green-500">Paid</span>
+                      <span className="text-green-600 font-bold px-2 py-1">
+                        Paid
+                      </span>
                     ) : (
                       <Link
                         to="/dashboard/payment"
