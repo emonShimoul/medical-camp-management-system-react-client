@@ -19,6 +19,7 @@ import ManageRegisteredCamps from "../pages/Dashboard/ManageRegisteredCamps/Mana
 import PaymentHistory from "../pages/ParticipantsDashboard/PaymentHistory/PaymentHistory";
 import Analytics from "../pages/ParticipantsDashboard/Analytics/Analytics";
 import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
+import FeedbackAndRatings from "../components/FeedbackAndRatings/FeedbackAndRatings";
 
 export const router = createBrowserRouter([
   {
