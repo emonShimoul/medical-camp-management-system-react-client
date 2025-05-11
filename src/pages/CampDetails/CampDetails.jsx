@@ -30,26 +30,27 @@ const CampDetails = () => {
       fees: camp.fees,
     };
 
-    // console.log(registrationData);
-
     try {
       const res = await axiosPublic.post("/registeredCamps", registrationData);
+
       if (res.data.insertedId) {
         Swal.fire(
           "Success!",
           "You have successfully joined the camp.",
           "success"
         );
-      } else {
-        Swal.fire(
-          "Warning",
-          "You already joined this camp or something went wrong!",
-          "warning"
-        );
       }
     } catch (error) {
-      console.error(error);
-      Swal.fire("Error", "Something went wrong. Please try again.", "error");
+      if (error.response?.status === 409) {
+        Swal.fire(
+          "Already Registered",
+          "You have already registered for this camp.",
+          "warning"
+        );
+      } else {
+        console.error(error);
+        Swal.fire("Error", "Something went wrong. Please try again.", "error");
+      }
     }
   };
 
