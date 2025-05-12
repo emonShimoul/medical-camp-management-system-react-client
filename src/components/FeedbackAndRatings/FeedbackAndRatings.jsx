@@ -23,7 +23,7 @@ const FeedbackAndRatings = () => {
   if (isLoading) return <p>Loading feedback...</p>;
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-8 bg-gray-50 rounded-lg shadow mb-8">
+    <section className="px-4 py-8 bg-gray-50 rounded-lg shadow mb-8">
       <h2 className="text-3xl font-bold mb-6 text-center text-teal-700">
         What Participants Say
       </h2>

@@ -77,7 +77,7 @@ const CampDetails = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="bg-white rounded-xl shadow-md overflow-hidden border border-teal-100">
         <img
           src={camp.image}

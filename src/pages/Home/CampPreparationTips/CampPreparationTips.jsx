@@ -31,7 +31,7 @@ const CampPreparationTips = () => {
   ];
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-10 bg-emerald-50 rounded-xl shadow-md my-10">
+    <section className="px-6 py-10 bg-emerald-50 rounded-xl shadow-md my-10">
       <h2 className="text-3xl font-bold text-center text-emerald-700 mb-8">
         Camp Preparation Tips
       </h2>
