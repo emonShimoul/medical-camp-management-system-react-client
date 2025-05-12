@@ -27,7 +27,6 @@ const AddCamp = () => {
           "content-type": "multipart/form-data",
         },
       });
-      console.log(res.data);
 
       if (res.data.success) {
         const campData = {
@@ -37,7 +36,6 @@ const AddCamp = () => {
           dateTime: new Date(data.dateTime),
           image: res.data.data.display_url,
         };
-        console.log(campData);
         const campRes = await axiosPublic.post("/camp", campData);
         if (campRes.data.insertedId) {
           reset();

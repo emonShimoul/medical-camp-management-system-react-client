@@ -1,5 +1,3 @@
-import React from "react";
-
 const GenericCard = ({ icon, title, description }) => (
   <div className="bg-gray-50 border rounded-lg p-4 hover:shadow transition">
     <div className="text-3xl">{icon}</div>

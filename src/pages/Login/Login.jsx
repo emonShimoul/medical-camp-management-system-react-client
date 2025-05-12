@@ -16,12 +16,10 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    // console.log(email, password);
 
     signIn(email, password)
       .then((result) => {
         const _user = result.user;
-        // console.log(user);
         Swal.fire({
           title: "User Login Successfully!!",
           showClass: {

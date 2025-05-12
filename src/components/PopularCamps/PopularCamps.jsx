@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const PopularCamps = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const { data: camps = [], isLoading } = useQuery({
     queryKey: ["popularCamps"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/camp");
+      const res = await axiosPublic.get("/camp");
       // Sort by participantCount descending and pick top 6
       const sorted = res.data
         .sort((a, b) => b.participantCount - a.participantCount)
@@ -43,8 +43,8 @@ const PopularCamps = () => {
                 {camp.campName}
               </h3>
               <p className="text-sm text-gray-600">
-                <span className="font-semibold text-emerald-600">Fees:</span> $
-                {camp.fee}
+                <span className="font-semibold text-emerald-600">Fees: </span>
+                {camp.fees}
               </p>
               <p className="text-sm text-gray-600">
                 <span className="font-semibold text-emerald-600">

@@ -19,7 +19,6 @@ import ManageRegisteredCamps from "../pages/Dashboard/ManageRegisteredCamps/Mana
 import PaymentHistory from "../pages/ParticipantsDashboard/PaymentHistory/PaymentHistory";
 import Analytics from "../pages/ParticipantsDashboard/Analytics/Analytics";
 import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
-import FeedbackAndRatings from "../components/FeedbackAndRatings/FeedbackAndRatings";
 
 export const router = createBrowserRouter([
   {
@@ -40,19 +39,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/camps",
-        element: (
-          <PrivateRoute>
-            <AvailableCamps></AvailableCamps>
-          </PrivateRoute>
-        ),
+        element: <AvailableCamps></AvailableCamps>,
       },
       {
         path: "/campDetails/:id",
-        element: (
-          <PrivateRoute>
-            <CampDetails></CampDetails>
-          </PrivateRoute>
-        ),
+        element: <CampDetails></CampDetails>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/camp/${params.id}`),
       },

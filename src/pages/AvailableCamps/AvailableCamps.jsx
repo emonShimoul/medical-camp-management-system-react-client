@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaThLarge, FaTh } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const AvailableCamps = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const { data: camps = [], isLoading } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/camp");
+      const res = await axiosPublic.get("/camp");
       return res.data;
     },
   });

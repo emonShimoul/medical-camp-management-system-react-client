@@ -5,7 +5,6 @@ import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  // console.log(user);
   const dropdownRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -62,9 +61,6 @@ const Navbar = () => {
             <li>
               <Link to="/camps">Available Camps</Link>
             </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
             {!user && (
               <li>
                 <Link to="/login">Join Us</Link>
@@ -78,7 +74,6 @@ const Navbar = () => {
           <span className="text-2xl font-bold text-teal-600">MedCamp</span>
         </Link>
       </div>
-
       {/* Center Menu for Desktop/Tablet */}
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1 text-base font-medium text-teal-600">
@@ -87,9 +82,6 @@ const Navbar = () => {
           </li>
           <li>
             <Link to="/camps">Available Camps</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
           </li>
         </ul>
       </div>

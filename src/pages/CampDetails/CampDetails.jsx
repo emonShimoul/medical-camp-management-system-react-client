@@ -107,7 +107,7 @@ const CampDetails = () => {
             {camp.participantCount}
           </p>
           <p className="text-gray-700">
-            <span className="font-semibold text-teal-600">Fees:</span> $
+            <span className="font-semibold text-teal-600">Fees: </span>
             {camp.fees}
           </p>
           <p className="text-gray-700 leading-relaxed">{camp.description}</p>

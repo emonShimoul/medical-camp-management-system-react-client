@@ -22,7 +22,6 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     // image upload to imgbb and then get an url
     const imageFile = { image: data.image[0] };
 
@@ -62,7 +61,6 @@ const Register = () => {
               setError({ ...error, registerErr: err.message });
             });
         }
-        // console.log("with image url", res.data);
       })
       .catch((err) => {
         setError({ ...error, registerErr: err.message });

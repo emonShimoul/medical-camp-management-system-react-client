@@ -61,9 +61,14 @@ const DashboardLayout = () => {
         </div>
 
         <Link to="/dashboard" onClick={handleLinkClick}>
-          <h2 className="text-2xl font-bold text-[#3B82F6] mb-6 text-center">
+          <h2 className="text-2xl font-bold text-[#3B82F6] mb-2 text-center">
             Dashboard
           </h2>
+          <Link to="/">
+            <p className="text-white underline text-xs mb-4 text-center">
+              Back to Website
+            </p>
+          </Link>{" "}
         </Link>
 
         <nav className="space-y-2">
