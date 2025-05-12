@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
         path: "/campDetails/:id",
         element: <CampDetails></CampDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/camp/${params.id}`),
+          fetch(`https://mcms-node-server.vercel.app/camp/${params.id}`),
       },
     ],
   },

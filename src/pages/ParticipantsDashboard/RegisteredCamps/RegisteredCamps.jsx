@@ -93,13 +93,14 @@ const RegisteredCamps = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const { feedback, rating } = result.value;
-
+        console.log("Preparing to send feedback...");
         await axiosPublic.post("/feedback", {
           campId,
           feedback,
           rating,
           userEmail: user.email,
         });
+        console.log("Feedback POST request sent");
         await refetchFeedbacks();
         Swal.fire("Thank you!", "Your feedback has been submitted.", "success");
       }
